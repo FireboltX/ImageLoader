@@ -1,7 +1,7 @@
 package imageloader.fireboltx.com.picassolibrary;
 
 /**
- * Created by Lenov on 2018/7/2.
+ * Created by FireBoltX on 2018/7/2.
  * PackageName imageloader.fireboltx.com.picassolibrary
  */
 
