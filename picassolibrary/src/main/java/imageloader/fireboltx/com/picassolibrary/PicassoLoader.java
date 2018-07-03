@@ -14,6 +14,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.squareup.picasso.LruCache;
@@ -24,17 +25,15 @@ import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
 import com.squareup.picasso.Transformation;
 
+import java.io.File;
+
 import imageloader.fireboltx.com.baselibrary.BitmapCallBack;
 import imageloader.fireboltx.com.baselibrary.ILoaderStrategy;
 import imageloader.fireboltx.com.baselibrary.LoaderOptions;
 
-import java.io.File;
-
-/**
- * Created by JohnsonFan on 2017/6/27.
- */
 
 public class PicassoLoader implements ILoaderStrategy {
+    private static String TAG = PicassoLoader.class.getSimpleName();
     private volatile static Picasso sPicassoSingleton;
     private final String PICASSO_CACHE = "picasso-cache";
     //    private static LruCache sLruCache = new LruCache(App.gApp);
@@ -43,7 +42,7 @@ public class PicassoLoader implements ILoaderStrategy {
 
 
     public PicassoLoader(Application app) {
-        this.application = app;
+        application = app;
     }
 
     private static Picasso getPicasso() {
@@ -120,9 +119,15 @@ public class PicassoLoader implements ILoaderStrategy {
         }
 
         if (options.targetView instanceof ImageView) {
+            Log.e(TAG, "instanceof ImageView yes");
             requestCreator.into(((ImageView) options.targetView));
         } else if (options.callBack != null) {
+            Log.e(TAG, "instanceof ImageView callback");
             requestCreator.into(new PicassoTarget(options.callBack));
+        } else if (options.callBack == null) {
+            Log.e(TAG, "instanceof ImageView no");
+        } else {
+            Log.e(TAG, "instanceof total fail");
         }
     }
 
@@ -131,6 +136,7 @@ public class PicassoLoader implements ILoaderStrategy {
 
         protected PicassoTarget(BitmapCallBack callBack) {
             this.callBack = callBack;
+            Log.e(TAG, "BitmapCallBack" + callBack.toString());
         }
 
         @Override

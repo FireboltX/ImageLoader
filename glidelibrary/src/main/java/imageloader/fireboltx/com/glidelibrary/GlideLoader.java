@@ -12,13 +12,12 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.Resource;
@@ -41,6 +40,7 @@ import imageloader.fireboltx.com.baselibrary.LoaderOptions;
  * PackageName imageloader.fireboltx.com.glidelibrary
  */
 public class GlideLoader implements ILoaderStrategy {
+    private static String TAG = GlideLoader.class.getSimpleName();
     private volatile static Glide sGlideSingleton;
     private final String GLIDE_CACHE = "glide-cache";
     //    private static LruCache sLruCache = new LruCache(App.gApp);
@@ -49,7 +49,7 @@ public class GlideLoader implements ILoaderStrategy {
 
 
     public GlideLoader(Application app) {
-        this.application = app;
+        application = app;
     }
 
     private static Glide getGlide() {
@@ -60,6 +60,7 @@ public class GlideLoader implements ILoaderStrategy {
 //                    sGlideSingleton = new GlideBuilder Builder(application).memoryCache(sLruCache).build();
 //                    sGlideSingleton= (new GlideBuilder()).setBitmapPool()
                     sGlideSingleton = Glide.get(application);
+
                 }
             }
         }
@@ -89,9 +90,8 @@ public class GlideLoader implements ILoaderStrategy {
         RequestBuilder builder = null;
 
         if (options.targetView instanceof ImageView) {
-            manager = getGlide().with(options.targetView.getContext());
-        } else if (options.callBack != null) {
-//            requestCreator.into(new PicassoTarget(options.callBack));
+//            manager = getGlide().with(options.targetView.getContext());
+            manager = Glide.with(options.targetView.getContext());
         }
 
         if (options.url != null) {
@@ -138,7 +138,7 @@ public class GlideLoader implements ILoaderStrategy {
         }
         if (options.placeholderResId != 0) {
 //            requestCreator.placeholder(options.placeholderResId);
-            RequestOptions requestOption  =new RequestOptions();
+            RequestOptions requestOption = new RequestOptions();
             requestOption.placeholder(options.errorResId);
             builder.apply(requestOption);
         }
@@ -174,8 +174,11 @@ public class GlideLoader implements ILoaderStrategy {
             builder.into(((ImageView) options.targetView));
         } else if (options.callBack != null) {
             builder.into(new PicassoTarget(options.callBack));
+        } else if (options.callBack == null) {
+            Log.e(TAG, "instanceof ImageView no");
+        } else {
+            Log.e(TAG, "instanceof total fail");
         }
-
     }
 
     class PicassoTarget implements Target {
