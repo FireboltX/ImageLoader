@@ -1,4 +1,5 @@
 对主流框架进行封装，可切换glide/picasso/fresco
+
 目前只实现了glide和picasso，fresco没做实现，您可以fork一下自己实现
 
 
