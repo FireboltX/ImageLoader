@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>com.github.FireboltX</groupId>
 			<artifactId>ImageLoader</artifactId>
-			<version>0.1</version>
+			<version>0.3</version>
 		</dependency>
 		
 二，使用：
@@ -56,6 +56,7 @@
 	使用
 		ImageLoader.getInstance()
 			.load("http://g.hiphotos.baidu.com/image/pic/item/0823dd54564e92584fbb491f9082d158cdbf4eb0.jpg")
+			//.load(R.drawalbe.yourPic)
 			.into(image);
 	
 	
