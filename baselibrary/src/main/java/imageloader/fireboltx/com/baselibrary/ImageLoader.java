@@ -3,7 +3,6 @@ package imageloader.fireboltx.com.baselibrary;
 import android.net.Uri;
 
 import java.io.File;
-
 /**
  * 图片加载类
  * 策略或者静态代理模式，开发者只需要关心ImageLoader + LoaderOptions
