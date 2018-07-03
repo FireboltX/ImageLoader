@@ -1,6 +1,7 @@
 对主流框架进行封装，可切换glide/picasso/fresco
 
 一，安装：
+
 	Gradle:
 		Step 1. Add the JitPack repository to your build file
 		Add it in your root build.gradle at the end of repositories:
@@ -33,7 +34,9 @@
 		</dependency>
 		
 二，使用：
+
 	Step 1:
+	
 	初始化图片库
 		public class App extends Application {
 
@@ -46,6 +49,7 @@
 			}
 		}
 	Step 2:
+	
 	使用
 		ImageLoader.getInstance()
 			.load("http://g.hiphotos.baidu.com/image/pic/item/0823dd54564e92584fbb491f9082d158cdbf4eb0.jpg")
