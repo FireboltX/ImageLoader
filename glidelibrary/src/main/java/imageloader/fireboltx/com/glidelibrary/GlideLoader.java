@@ -86,99 +86,93 @@ public class GlideLoader implements ILoaderStrategy {
     public void loadImage(LoaderOptions options) {
 //        RequestCreator requestCreator = null;
 //        RequestOptions requestOptions = null;
-        RequestManager manager = null;
-        RequestBuilder builder = null;
+        try {
+            RequestManager manager = null;
+            RequestBuilder builder = null;
 
-        if (options.targetView instanceof ImageView) {
-//            manager = getGlide().with(options.targetView.getContext());
-            manager = Glide.with(options.targetView.getContext());
-        }
-
-        if (options.url != null) {
-            builder = manager.load(options.uri);//.apply() getGlide().load(options.url);
-        } else if (options.file != null) {
-            builder = manager.load(options.file);
-        } else if (options.drawableResId != 0) {
-            builder = manager.load(options.drawableResId);
-        } else if (options.uri != null) {
-            builder = manager.load(options.uri);
-        }
-
-        if (builder == null) {
-            throw new NullPointerException("requestCreator must not be null");
-        }
-
-        if (options.targetHeight > 0 && options.targetWidth > 0) {
-            RequestOptions requestOption = new RequestOptions();
-            requestOption.override(options.targetHeight, options.targetWidth);
-            builder.apply(requestOption);
-        }
-        if (options.isCenterInside) {
-//            requestCreator.centerInside();
-            RequestOptions requestOption = new RequestOptions();
-            requestOption.centerInside();
-            builder.apply(requestOption);
-        } else if (options.isCenterCrop) {
-//            requestCreator.centerCrop();
-            RequestOptions requestOption = new RequestOptions();
-            requestOption.centerCrop();
-            builder.apply(requestOption);
-        }
-        if (options.config != null) {
-
-//            RequestOptions requestOption  =new RequestOptions();
-//            builder.apply(requestOption);
-        }
-        if (options.errorResId != 0) {
-//            requestCreator.error(options.errorResId);
-//            requestCreator.error();
-            RequestOptions requestOption = new RequestOptions();
-            requestOption.error(options.errorResId);
-            builder.apply(requestOption);
-        }
-        if (options.placeholderResId != 0) {
-//            requestCreator.placeholder(options.placeholderResId);
-            RequestOptions requestOption = new RequestOptions();
-            requestOption.placeholder(options.errorResId);
-            builder.apply(requestOption);
-        }
-        if (options.bitmapAngle != 0) {
-//            requestCreator.transform(new PicassoTransformation(options.bitmapAngle));
-            RequestOptions requestOption = new RequestOptions();
-            requestOption.transform(new PicassoTransformation(options.bitmapAngle));
-            builder.apply(requestOption);
-        }
-        if (options.skipLocalCache) {
-//            requestCreator.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE);
-            RequestOptions requestOption = new RequestOptions();
-            if (options.skipLocalCache) {
-                requestOption.diskCacheStrategy(DiskCacheStrategy.NONE);
+            if (options.targetView instanceof ImageView) {
+                manager = Glide.with(options.targetView.getContext());
             }
-            builder.apply(requestOption);
-        }
-        if (options.skipNetCache) {
+
+            if (options.url != null) {
+                builder = manager.load(options.url);
+            } else if (options.file != null) {
+                builder = manager.load(options.file);
+            } else if (options.drawableResId != 0) {
+                builder = manager.load(options.drawableResId);
+            } else if (options.uri != null) {
+                builder = manager.load(options.uri);
+            }
+
+            if (builder == null) {
+                throw new NullPointerException("requestCreator must not be null");
+            }
+
+            if (options.targetHeight > 0 && options.targetWidth > 0) {
+                RequestOptions requestOption = new RequestOptions();
+                requestOption.override(options.targetHeight, options.targetWidth);
+                builder.apply(requestOption);
+            }
+            if (options.isCenterInside) {
+                RequestOptions requestOption = new RequestOptions();
+                requestOption.centerInside();
+                builder.apply(requestOption);
+            } else if (options.isCenterCrop) {
+                RequestOptions requestOption = new RequestOptions();
+                requestOption.centerCrop();
+                builder.apply(requestOption);
+            }
+            if (options.config != null) {
+
+            }
+            if (options.errorResId != 0) {
+                RequestOptions requestOption = new RequestOptions();
+                requestOption.error(options.errorResId);
+                builder.apply(requestOption);
+            }
+            if (options.placeholderResId != 0) {
+                RequestOptions requestOption = new RequestOptions();
+                requestOption.placeholder(options.errorResId);
+                builder.apply(requestOption);
+            }
+            if (options.bitmapAngle != 0) {
+                RequestOptions requestOption = new RequestOptions();
+                requestOption.transform(new PicassoTransformation(options.bitmapAngle));
+                builder.apply(requestOption);
+            }
+            if (options.skipLocalCache) {
+                RequestOptions requestOption = new RequestOptions();
+                if (options.skipLocalCache) {
+                    requestOption.diskCacheStrategy(DiskCacheStrategy.NONE);
+                }
+                builder.apply(requestOption);
+            }
+            if (options.skipNetCache) {
 //            requestCreator.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE);
 
 //            RequestOptions requestOption  =new RequestOptions();
 //            requestOption.diskCacheStrategy(DiskCacheStrategy.NONE);
 //            builder.apply(requestOption);
-        }
-        if (options.degrees != 0) {
-//            requestCreator.rotate(options.degrees);
-            RequestOptions requestOption = new RequestOptions();
-            requestOption.error(options.errorResId);
-            builder.apply(requestOption);
+            }
+            if (options.degrees != 0) {
+                RequestOptions requestOption = new RequestOptions();
+                requestOption.error(options.errorResId);
+                builder.apply(requestOption);
+            }
+
+            if (options.targetView instanceof ImageView) {
+                builder.into(((ImageView) options.targetView));
+            } else if (options.callBack != null) {
+                builder.into(new PicassoTarget(options.callBack));
+            } else if (options.callBack == null) {
+                Log.e(TAG, "instanceof ImageView no");
+            } else {
+                Log.e(TAG, "instanceof total fail");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        if (options.targetView instanceof ImageView) {
-            builder.into(((ImageView) options.targetView));
-        } else if (options.callBack != null) {
-            builder.into(new PicassoTarget(options.callBack));
-        } else if (options.callBack == null) {
-            Log.e(TAG, "instanceof ImageView no");
-        } else {
-            Log.e(TAG, "instanceof total fail");
-        }
     }
 
     class PicassoTarget implements Target {
