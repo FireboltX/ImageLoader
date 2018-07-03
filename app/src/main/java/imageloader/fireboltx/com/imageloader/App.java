@@ -6,6 +6,10 @@ import imageloader.fireboltx.com.baselibrary.ImageLoader;
 import imageloader.fireboltx.com.glidelibrary.GlideLoader;
 import imageloader.fireboltx.com.picassolibrary.PicassoLoader;
 
+//import imageloader.fireboltx.com.baselibrary.ImageLoader;
+//import imageloader.fireboltx.com.glidelibrary.GlideLoader;
+//import imageloader.fireboltx.com.picassolibrary.PicassoLoader;
+
 
 public class App extends Application {
 
@@ -13,7 +17,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         //初始化图片库
-//		ImageLoader.getInstance().setGlobalImageLoader(new GlideLoader(this));
-        ImageLoader.getInstance().setGlobalImageLoader(new PicassoLoader(this));
+        ImageLoader.getInstance().setGlobalImageLoader(new GlideLoader(this));
+//        ImageLoader.getInstance().setGlobalImageLoader(new PicassoLoader(this));
     }
 }
