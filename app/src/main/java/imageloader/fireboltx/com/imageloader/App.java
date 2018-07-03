@@ -6,11 +6,6 @@ import imageloader.fireboltx.com.baselibrary.ImageLoader;
 import imageloader.fireboltx.com.glidelibrary.GlideLoader;
 import imageloader.fireboltx.com.picassolibrary.PicassoLoader;
 
-//import imageloader.fireboltx.com.baselibrary.ImageLoader;
-//import imageloader.fireboltx.com.glidelibrary.GlideLoader;
-//import imageloader.fireboltx.com.picassolibrary.PicassoLoader;
-
-
 public class App extends Application {
 
     @Override
