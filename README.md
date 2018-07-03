@@ -17,7 +17,7 @@
 		
 		Step 2. Add the dependency
 		dependencies {
-					implementation 'com.github.FireboltX:ImageLoader:0.1'
+					implementation 'com.github.FireboltX:ImageLoader:0.3'
 			}
 		
 	Maven:			
